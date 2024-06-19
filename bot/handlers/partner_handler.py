@@ -15,12 +15,16 @@ async def partner_function(msg: types.Message):
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
     if tg_user['language'] == 'uz':
         await msg.answer(text="""
-Hamkor bo'lish
+Bu yerda siz sotuvchi yoki sotib oluvchi sifatida hamkorlikni yo'lga qo'yishingiz mumkin.
+
+Kiritilgan ma'lumotlar asosida biz sizga mijoz yoki xaridor topib berishga harakat qilamiz
 """, reply_markup=await partner_buttons())
     else:
         await msg.answer(text="""
-Hamkor bo'lish
-""", reply_markup=await partner_buttons())
+Здесь вы можете наладить сотрудничество в качестве продавца или покупателя.
+
+На основании введенной информации мы постараемся найти Вам клиента или покупателя.""",
+                         reply_markup=await partner_buttons())
 
 
 @dp.message_handler(Text(yes))

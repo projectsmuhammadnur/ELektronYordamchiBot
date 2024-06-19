@@ -24,25 +24,17 @@ async def sell_function(msg: types.Message, state: FSMContext):
     await state.set_state("sell")
     if msg.text == sell:
         await msg.answer(text="""
-Bu tugmacha orqali siz 
-b/u
-Qurilish materiallari 
-Mebel 
-Har xil turdagi bitavoy texnikalar
-Turliy xil Telefonlar 
-Barca eski nima tavarlaringiz yoki texnikangiz bo'lsa barchasini shu tugmacha orqaliy botimizga foto suratlari bilan joylashtirish savdoga qo'yish imkoniga egasiz.
+Bu yerdan siz yangi xo'jalik va qurilish mollarini, turli xildagi aksessuarlarni xarid qilishingiz mumkin. 
+Buning uchun sizdan mahsulot nomi yoki suratini ilova qilgan holda izlash talab etiladi
+Bot orqali xarid qilish jarayonida har ikki tomondan halollik va savdo qonun-qoidalariga rioya qilish talab etiladi. Mahsulot sotib olayotganda sotuvchidan chek talab qilishni unutmang!
 
 Sotmoqchi bo'lgan maxsulotingizni rasm yoki video formatda tashlang 📷""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-С помощью этой кнопки вы 
-б/у
-Строительные материалы 
-Мебель 
-Различные виды примитивных техник
-Разные телефоны 
-Барса, у вас есть возможность выставить на продажу все свои старые товары или технику на нашем боте с фотографиями, используя эту кнопку.
+Здесь вы можете купить новые товары для дома и строительства, различные аксессуары. 
+Для этого попросите выполнить поиск по названию продукта или прикрепленному изображению.
+Требуйте честности и справедливой торговой практики от обеих сторон процесса совершения покупок с помощью ботов. При покупке товара запросите у продавца чек!
 
 Разместите товар, который хотите продать, в формате изображения или видео 📷""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
@@ -76,17 +68,30 @@ async def buy_function(msg: types.Message, state: FSMContext):
     await state.set_state("buy")
     if msg.text == buy:
         await msg.answer(text="""
-Bu tugmacha orqaliy siz
-Yangi Qurilish Mollari va Xo'jalik Molarini Topishingiz Mumkin Bo'ladi
-Buning uchun siz tavar nomi imkon bo'sa foto suratlarini ilova qilgan holda izlash imkoniga egasiz.
+Bu yerda siz:
+Xo'jalik mollari
+Qurilish mahsulotlari 
+Maishiy texnikalar
+Mebel va uy jihozlari
+Telefon va aksessuarlar 
+Ishlatishga yaroqli barcha buyumlaringizni sotish imkoniga egasiz
+*faqatgina uy va avtomobil old-sotdisi bundan mustasno
+Tovarlarni sotish jarayonida har ikki tomondan halollik va savdo qonun-qoidalarga bo'ysunish talab etiladi
+
 
 Sotib olmoqchi bo'lgan maxsulotingizni text, rasm yoki video formatda tasvirlang ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Вы находитесь через эту кнопку
-Вы можете найти новые строительные товары и товары для дома
-Для этого у вас есть возможность поиска по названию товара, если это возможно, с прикрепленными фотографиями.
+Вот ты:
+Домашние товары
+Строительная продукция 
+Бытовая техника
+Мебель и бытовая техника
+Телефон и аксессуары 
+Вы можете продать все свои полезные предметы
+*кроме предварительной продажи дома и автомобиля
+В процессе реализации товаров требуется честность и соблюдение торгового законодательства с обеих сторон.
         
 Опишите продукт, который вы хотите купить, в текстовом, графическом или видеоформате ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
@@ -122,10 +127,21 @@ Telefon raqam: {tg_user['phone_number']}"""
 async def offer_function(msg: types.Message, state: FSMContext):
     await state.set_state("offer")
     if msg.text == offer:
-        await msg.answer(text="Taklifingizni matn formatida yuboring 📄",
+        await msg.answer(text="""
+Bu yerda siz o'z takliflaringizni qoldirishingiz mumkin. 
+Bot foydalanuvchilariga o'z xizmatingizni taklif qilishni istasangiz, shu yerda murojaat qoldirasiz. Biz esa sizning xizmatingizni mijozlarga taqdim etamiz.
+Buning uchun vizitka bo'limiga o'tib, o'zingiz uchun vizitka olishingiz shart
+
+
+Taklifingizni matn formatida yuboring 📄""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
-        await msg.answer(text="Отправьте ваше предложение в текстовом формате 📄",
+        await msg.answer(text="""
+Здесь вы можете оставить свои предложения. 
+Если вы хотите предложить свою услугу пользователям ботов, вы можете оставить заявку здесь. И мы предоставляем ваши услуги клиентам.
+Для этого вам необходимо зайти в раздел визитки и приобрести визитку себе.
+        
+Отправьте ваше предложение в текстовом формате 📄""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
@@ -152,10 +168,20 @@ Taklif:\n{msg.text}""", parse_mode='HTML')
 async def complaint_function(msg: types.Message, state: FSMContext):
     await state.set_state("complaint")
     if msg.text == complaint:
-        await msg.answer(text="Shikoyatingizni matn formatida yuboring 📄",
+        await msg.answer(text="""
+Bu yerda siz o'z shikoyatlaringizni qoldirishingiz mumkin. 
+Qonun-qoidalarga amal qilmagan har qanday sotuvchi yoki xaridor darhol qora ro'yxatga kiritilib, bloklanadi. Bloklangan raqam orqali botdan qayta foydalana olmaydi
+Har bir foydalanuvchi asosli shikoyat qoldirish huquqiga ega.
+
+Shikoyatingizni matn formatida yuboring 📄""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
-        await msg.answer(text="Отправьте жалобу в текстовом формате 📄",
+        await msg.answer(text="""
+Здесь вы можете оставить свои жалобы. 
+Любой продавец или покупатель, не соблюдающий правила, будет немедленно занесен в черный список и заблокирован. Не могу снова использовать бота из-за заблокированного номера
+Каждый пользователь имеет право подать обоснованную жалобу.
+
+Отправьте жалобу в текстовом формате 📄""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
@@ -182,10 +208,18 @@ Shikoyat:\n{msg.text}""", parse_mode='HTML')
 async def business_card_function(msg: types.Message, state: FSMContext):
     await state.set_state("business_card")
     if msg.text == business_card:
-        await msg.answer(text="Joylashuvingizni tugma orqali yuboring 👇",
+        await msg.answer(text="""
+Botimizda o'z xizmat va mahsulotlarini taklif qiluvchi har bir a'zosi o'z vizitkasiga ega bo'lishi shart.
+Buning uchun pastda o'z ma'lumotlaringizni qoldirasiz va biz sizga shaxsiy tashrif qog'ozini tayyorlab beramiz
+
+Joylashuvingizni tugma orqali yuboring 👇""",
                          reply_markup=await location_buttons(msg.from_user.id))
     else:
-        await msg.answer(text="Укажите свое местоположение через кнопку 👇",
+        await msg.answer(text="""
+Каждый участник, предлагающий свои услуги и продукты с помощью нашего бота, должен иметь собственную визитную карточку.
+Для этого вы оставляете свои данные ниже и мы подготовим для вас персональную визитку
+
+Укажите свое местоположение через кнопку 👇""",
                          reply_markup=await location_buttons(msg.from_user.id))
 
 
