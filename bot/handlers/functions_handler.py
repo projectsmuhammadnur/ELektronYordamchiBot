@@ -11,12 +11,12 @@ from aiogram.dispatcher.filters import Text
 
 from bot.handlers import geolocator
 
-sell_group_id = -4229963929
-buy_group_id = -4181477016
-offer_group_id = -4251053177
-complaint_group_id = -4280972803
-partner_group_id = -4234344396
-business_card_id = -4271582747
+sell_group_id = -1002226699457
+buy_group_id = -1002183558449
+offer_group_id = -1002180481619
+complaint_group_id = -1002166274930
+partner_group_id = -1002206274820
+business_card_id = -1002196387423
 
 
 @dp.message_handler(Text(equals=[sell, sell_ru]))
