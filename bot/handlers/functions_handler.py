@@ -34,7 +34,7 @@ Ishlatishga yaroqli barcha buyumlaringizni sotish imkoniga egasiz
 *faqatgina uy va avtomobil old-sotdisi bundan mustasno
 Tovarlarni sotish jarayonida har ikki tomondan halollik va savdo qonun-qoidalarga bo'ysunish talab etiladi
 
-Sotmoqchi bo'lgan maxsulotingizni rasm yoki video formatda tashlang 📷""",
+Sotib olmoqchi bo'lgan maxsulotingizni text, rasm yoki video formatda tasvirlang ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
@@ -48,25 +48,28 @@ Sotmoqchi bo'lgan maxsulotingizni rasm yoki video formatda tashlang 📷""",
 *кроме предварительной продажи дома и автомобиля
 В процессе реализации товаров требуется честность и соблюдение торгового законодательства с обеих сторон.
 
-Разместите товар, который хотите продать, в формате изображения или видео 📷""",
+Опишите продукт, который вы хотите купить, в текстовом, графическом или видеоформате ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
-@dp.message_handler(state="sell", content_types=[types.ContentType.PHOTO, types.ContentType.VIDEO])
+@dp.message_handler(state="sell",
+                    content_types=[types.ContentType.PHOTO, types.ContentType.VIDEO, types.ContentType.TEXT])
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
     caption = f"""
-Yangi ariza🆕
-ID: <a href='tg://user?id={msg.from_user.id}'>{msg.from_user.id}</a>
-Username: @{msg.from_user.username}
-Ism-Familiya: {tg_user['full_name']}
-Telefon raqam: {tg_user['phone_number']}"""
+    Yangi ariza🆕
+    ID: <a href='tg://user?id={msg.from_user.id}'>{msg.from_user.id}</a>
+    Username: @{msg.from_user.username}
+    Ism-Familiya: {tg_user['full_name']}
+    Telefon raqam: {tg_user['phone_number']}"""
     if msg.content_type == types.ContentType.PHOTO:
         await bot.send_photo(chat_id=sell_group_id, photo=msg.photo[-1].file_id, caption=caption,
                              parse_mode='HTML')
-    else:
+    elif msg.content_type == types.ContentType.VIDEO:
         await bot.send_video(chat_id=sell_group_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+    else:
+        await bot.send_message(chat_id=sell_group_id, text=f"{caption}\nAriza:\n{msg.text}", parse_mode='HTML')
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
