@@ -58,11 +58,11 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
     caption = f"""
-    Yangi ariza🆕
-    ID: <a href='tg://user?id={msg.from_user.id}'>{msg.from_user.id}</a>
-    Username: @{msg.from_user.username}
-    Ism-Familiya: {tg_user['full_name']}
-    Telefon raqam: {tg_user['phone_number']}"""
+Yangi ariza🆕
+ID: <a href='tg://user?id={msg.from_user.id}'>{msg.from_user.id}</a>
+Username: @{msg.from_user.username}
+Ism-Familiya: {tg_user['full_name']}
+Telefon raqam: {tg_user['phone_number']}"""
     if msg.content_type == types.ContentType.PHOTO:
         await bot.send_photo(chat_id=sell_group_id, photo=msg.photo[-1].file_id, caption=caption,
                              parse_mode='HTML')
