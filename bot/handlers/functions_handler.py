@@ -24,17 +24,29 @@ async def sell_function(msg: types.Message, state: FSMContext):
     await state.set_state("sell")
     if msg.text == sell:
         await msg.answer(text="""
-Bu yerdan siz yangi xo'jalik va qurilish mollarini, turli xildagi aksessuarlarni xarid qilishingiz mumkin. 
-Buning uchun sizdan mahsulot nomi yoki suratini ilova qilgan holda izlash talab etiladi
-Bot orqali xarid qilish jarayonida har ikki tomondan halollik va savdo qonun-qoidalariga rioya qilish talab etiladi. Mahsulot sotib olayotganda sotuvchidan chek talab qilishni unutmang!
+Bu yerda siz:
+Xo'jalik mollari
+Qurilish mahsulotlari 
+Maishiy texnikalar
+Mebel va uy jihozlari
+Telefon va aksessuarlar 
+Ishlatishga yaroqli barcha buyumlaringizni sotish imkoniga egasiz
+*faqatgina uy va avtomobil old-sotdisi bundan mustasno
+Tovarlarni sotish jarayonida har ikki tomondan halollik va savdo qonun-qoidalarga bo'ysunish talab etiladi
 
 Sotmoqchi bo'lgan maxsulotingizni rasm yoki video formatda tashlang 📷""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Здесь вы можете купить новые товары для дома и строительства, различные аксессуары. 
-Для этого попросите выполнить поиск по названию продукта или прикрепленному изображению.
-Требуйте честности и справедливой торговой практики от обеих сторон процесса совершения покупок с помощью ботов. При покупке товара запросите у продавца чек!
+Вот ты:
+Домашние товары
+Строительная продукция 
+Бытовая техника
+Мебель и бытовая техника
+Телефон и аксессуары 
+Вы можете продать все свои полезные предметы
+*кроме предварительной продажи дома и автомобиля
+В процессе реализации товаров требуется честность и соблюдение торгового законодательства с обеих сторон.
 
 Разместите товар, который хотите продать, в формате изображения или видео 📷""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
@@ -68,31 +80,18 @@ async def buy_function(msg: types.Message, state: FSMContext):
     await state.set_state("buy")
     if msg.text == buy:
         await msg.answer(text="""
-Bu yerda siz:
-Xo'jalik mollari
-Qurilish mahsulotlari 
-Maishiy texnikalar
-Mebel va uy jihozlari
-Telefon va aksessuarlar 
-Ishlatishga yaroqli barcha buyumlaringizni sotish imkoniga egasiz
-*faqatgina uy va avtomobil old-sotdisi bundan mustasno
-Tovarlarni sotish jarayonida har ikki tomondan halollik va savdo qonun-qoidalarga bo'ysunish talab etiladi
-
+Bu yerdan siz yangi xo'jalik va qurilish mollarini, turli xildagi aksessuarlarni xarid qilishingiz mumkin. 
+Buning uchun sizdan mahsulot nomi yoki suratini ilova qilgan holda izlash talab etiladi
+Bot orqali xarid qilish jarayonida har ikki tomondan halollik va savdo qonun-qoidalariga rioya qilish talab etiladi. Mahsulot sotib olayotganda sotuvchidan chek talab qilishni unutmang!
 
 Sotib olmoqchi bo'lgan maxsulotingizni text, rasm yoki video formatda tasvirlang ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Вот ты:
-Домашние товары
-Строительная продукция 
-Бытовая техника
-Мебель и бытовая техника
-Телефон и аксессуары 
-Вы можете продать все свои полезные предметы
-*кроме предварительной продажи дома и автомобиля
-В процессе реализации товаров требуется честность и соблюдение торгового законодательства с обеих сторон.
-        
+Здесь вы можете купить новые товары для дома и строительства, различные аксессуары. 
+Для этого попросите выполнить поиск по названию продукта или прикрепленному изображению.
+Требуйте честности и справедливой торговой практики от обеих сторон процесса совершения покупок с помощью ботов. При покупке товара запросите у продавца чек!
+
 Опишите продукт, который вы хотите купить, в текстовом, графическом или видеоформате ℹ️""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
