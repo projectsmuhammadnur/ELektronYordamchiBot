@@ -36,7 +36,6 @@ Tovarlarni sotish jarayonida har ikki tomondan halollik va savdo qonun-qoidalarg
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Вот ты:
 Домашние товары
 Строительная продукция 
 Бытовая техника
