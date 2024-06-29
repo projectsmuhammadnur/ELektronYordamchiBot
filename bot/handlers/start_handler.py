@@ -15,7 +15,7 @@ geolocator = Nominatim(user_agent="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")
 
 
 @dp.message_handler(Text(equals=[back_main_menu, back_main_menu_ru]),
-                    state=['sell', 'buy', 'offer', 'complaint', 'business_card'])
+                    state=['sell', 'buy', 'offer', 'complaint', 'business_card', 'directory'])
 async def back_main_menu_function_1(msg: types.Message, state: FSMContext):
     if msg.text == back_main_menu:
         await msg.answer(text=f"Asosiy menu🏠", reply_markup=await main_menu_buttons(msg.from_user.id))
