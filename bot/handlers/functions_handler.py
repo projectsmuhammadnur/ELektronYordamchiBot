@@ -226,14 +226,40 @@ async def sell_function(msg: types.Message, state: FSMContext):
         await msg.answer(text="""
 Hurmatli sotuvchi siz bu yerda oʻzingizni telefon maxsulotlaringizni kanalga joylang.
 
-Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!""",
+Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!
+
+E'lon berish tartibi
+
+⌚️📱💻🖥 Rasm
+📲 Nomi:
+💾 Xotirasi:
+🎨 Rangi:
+🔧 Xolati:
+📦📄 bor/yo'q
+💰 Narxi:
+☎️ Telefon:
+✍️ User bo'lsa: @
+🇺🇿 Manzil:
+
+Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
+Уважаемый продавец, пожалуйста, разместите свои телефонные товары по следующему шаблону на канале:
 
-Уважаемый продавец, пожалуйста, размещайте здесь свои товары для телефонов.
+⌚️📱💻🖥 Разм
+📲 Название:
+💾 Память:
+🎨 Цвет:
+🔧 Состояние:
+📦📄 Есть/нет
+💰 Цена:
+☎️ Телефон:
+✍️ Пользователь: @
+🇺🇿 Адрес:
 
-Напоминание: При продаже соблюдайте правила торговли и честность!""",
+Ваш канал: @telefonlar_elektron_yordamchi - объявления размещаются на этом канале"
+Не забывайте соблюдать правила торговли и честность!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
@@ -254,7 +280,7 @@ Telefon raqam: {tg_user['phone_number']}"""
     elif msg.content_type == types.ContentType.VIDEO:
         await bot.send_video(chat_id=directory_channel_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
     else:
-        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nAriza:\n{msg.text}", parse_mode='HTML')
+        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nMa'lumot:\n{msg.text}", parse_mode='HTML')
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
