@@ -70,13 +70,13 @@ async def buy_function(msg: types.Message, state: FSMContext):
         await msg.answer(text=""" 
 Hurmatli mijoz barcha turdagi va rusumdagi telefonlarni bizdan sotib olishingiz mumkun.
 
-Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chekingizni talab qiling!""",
+Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chek, garatiya va karobka-dokumentni olishni unutmang!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
 Уважаемый клиент, вы можете купить у нас телефоны всех видов и марок.
 
-Напоминание: При заключении сделки соблюдайте правила торговли и честность! Требуйте чек и гарантию!""",
+Напоминание: При заключении сделки соблюдайте правила торговли и честность! Не забудьте взять чек, гарантию и коробку с документами!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
