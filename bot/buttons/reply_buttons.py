@@ -5,7 +5,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 from bot.buttons.text import back_main_menu, adverts, none_advert, forward_advert, back_admin_menu, back_main_menu_ru, \
     choice_language, choice_language_ru, sell, buy, offer, complaint, sell_ru, buy_ru, offer_ru, complaint_ru, partner, \
-    partner_ru, yes, no, business_card, business_card_ru
+    partner_ru, yes, no, business_card, business_card_ru, directory_ru, directory
 
 
 async def main_menu_buttons(chat_id: int):
@@ -13,15 +13,17 @@ async def main_menu_buttons(chat_id: int):
     if tg_user['language'] == 'uz':
         design = [
             [sell, buy],
-            [offer, complaint],
             [partner, business_card],
+            [directory],
+            [offer, complaint],
             [choice_language]
         ]
     else:
         design = [
             [sell_ru, buy_ru],
-            [offer_ru, complaint_ru],
+            [directory_ru],
             [partner_ru, business_card_ru],
+            [offer_ru, complaint_ru],
             [choice_language_ru]
         ]
     return ReplyKeyboardMarkup(keyboard=design, resize_keyboard=True)
