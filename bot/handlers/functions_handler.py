@@ -183,11 +183,16 @@ async def business_card_function(msg: types.Message, state: FSMContext):
     await state.set_state("business_card")
     if msg.text == business_card:
         await msg.answer(text="""
-Siz telefon sotmoqchi yoki sotib olmoqchimisiz? Hamkorlik qilish istagida boʻlsangiz ✅ tugmasini bosing. Oʻzimiz siz bilan bogʻlanamiz.""",
+Biz bilan hamkorlik qilishni istaysizmi? Marhamat shaxsiy ma'lumotlaringizni joʻnating va bizdan roʻyxatdan oʻtib, oʻz vizitkangizga ega boʻling! 
+
+Dastlab joylashuvingizni koʻrsating:""",
                          reply_markup=await location_buttons(msg.from_user.id))
     else:
         await msg.answer(text="""
-Вы хотите продать или купить телефон? Если у вас есть желание сотрудничать, нажмите кнопку ✅. Мы свяжемся с вами.""",
+
+Хотите сотрудничать с нами? Пожалуйста, отправьте свои личные данные и зарегистрируйтесь у нас, чтобы получить свою визитку!
+
+Сначала укажите своё местоположение:""",
                          reply_markup=await location_buttons(msg.from_user.id))
 
 

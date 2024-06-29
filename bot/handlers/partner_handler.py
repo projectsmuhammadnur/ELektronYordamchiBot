@@ -14,17 +14,12 @@ from bot.handlers import partner_group_id
 async def partner_function(msg: types.Message):
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
     if tg_user['language'] == 'uz':
-        await msg.answer(text="""    
-Bu yerda siz sotuvchi yoki sotib oluvchi sifatida hamkorlikni yo'lga qo'yishingiz mumkin.
-
-Kiritilgan ma'lumotlar asosida biz sizga mijoz yoki xaridor topib berishga harakat qilamiz
-""", reply_markup=await partner_buttons())
+        await msg.answer(text="""
+        Siz telefon sotmoqchi yoki sotib olmoqchimisiz? Hamkorlik qilish istagida boʻlsangiz ✅ tugmasini bosing. Oʻzimiz siz bilan bogʻlanamiz.""",
+                         reply_markup=await partner_buttons())
     else:
         await msg.answer(text="""
-        
-Здесь вы можете наладить сотрудничество в качестве продавца или покупателя.
-    
-На основании введенной информации мы постараемся найти Вам клиента или покупателя.""",
+        Вы хотите продать или купить телефон? Если у вас есть желание сотрудничать, нажмите кнопку ✅. Мы свяжемся с вами.""",
                          reply_markup=await partner_buttons())
 
 
