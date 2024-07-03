@@ -20,23 +20,6 @@ partner_group_id = -1002206274820
 business_card_id = -1002196387423
 
 
-@dp.message_handler(Text(equals=[sell, sell_ru]))
-async def sell_function(msg: types.Message, state: FSMContext):
-    await state.set_state("sell")
-    if msg.text == sell:
-        await msg.answer(text="""
-Hurmatli sotuvchi siz bu yerda oʻzingizni telefon maxsulotlaringizni soting.
-
-Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!""",
-                         reply_markup=await back_main_menu_button(msg.from_user.id))
-    else:
-        await msg.answer(text="""
-Уважаемый продавец, пожалуйста, продавайте здесь свои товары для телефонов.
-
-Напоминание: При продаже соблюдайте правила торговли и честность!""",
-                         reply_markup=await back_main_menu_button(msg.from_user.id))
-
-
 @dp.message_handler(state="sell", content_types=types.ContentType.ANY)
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
@@ -46,7 +29,8 @@ Yangi telefon🆕
 
 Username: @{msg.from_user.username}
 Ism-Familiya: {tg_user['full_name']}
-Telefon raqam: {tg_user['phone_number']}"""
+Telefon raqam: {tg_user['phone_number']}
+{msg.caption if msg.caption else ""}"""
 
     media = []
     if msg.media_group_id:
@@ -117,7 +101,8 @@ Yangi telefon🆕
 
 Username: @{msg.from_user.username}
 Ism-Familiya: {tg_user['full_name']}
-Telefon raqam: {tg_user['phone_number']}"""
+Telefon raqam: {tg_user['phone_number']}
+{msg.caption if msg.caption else ""}"""
 
     media = []
     if msg.media_group_id:
