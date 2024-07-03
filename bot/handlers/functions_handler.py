@@ -37,45 +37,52 @@ Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
-@dp.message_handler(state="sell",
-                    content_types=[types.ContentType.ANY])
+@dp.message_handler(state="sell", content_types=types.ContentType.ANY)
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
+    caption = f"""
+Yangi telefon🆕
+
+Username: @{msg.from_user.username}
+Ism-Familiya: {tg_user['full_name']}
+Telefon raqam: {tg_user['phone_number']}"""
+
     media = []
     if msg.media_group_id:
         if msg.content_type == types.ContentType.PHOTO:
             for photo in msg.photo:
                 media.append(
-                    types.InputMediaPhoto(media=photo.file_id, caption=msg.caption if photo == msg.photo[-1] else "",
+                    types.InputMediaPhoto(media=photo.file_id, caption=caption if photo == msg.photo[-1] else "",
                                           parse_mode='HTML'))
         elif msg.content_type == types.ContentType.VIDEO:
             for video in msg.video:
                 media.append(
-                    types.InputMediaVideo(media=video.file_id, caption=msg.caption if video == msg.video[-1] else "",
+                    types.InputMediaVideo(media=video.file_id, caption=caption if video == msg.video[-1] else "",
                                           parse_mode='HTML'))
     else:
         if msg.content_type == types.ContentType.PHOTO:
-            media.append(types.InputMediaPhoto(media=msg.photo[-1].file_id, caption=msg.caption, parse_mode='HTML'))
+            await bot.send_photo(chat_id=sell_group_id, photo=msg.photo[-1].file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.VIDEO:
-            media.append(types.InputMediaVideo(media=msg.video.file_id, caption=msg.caption, parse_mode='HTML'))
+            await bot.send_video(chat_id=sell_group_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.DOCUMENT:
-            await bot.send_document(chat_id=sell_group_id, document=msg.document.file_id, caption=msg.caption,
+            await bot.send_document(chat_id=sell_group_id, document=msg.document.file_id, caption=caption,
                                     parse_mode='HTML')
         elif msg.content_type == types.ContentType.AUDIO:
-            await bot.send_audio(chat_id=sell_group_id, audio=msg.audio.file_id, caption=msg.caption,
-                                 parse_mode='HTML')
+            await bot.send_audio(chat_id=sell_group_id, audio=msg.audio.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.VOICE:
-            await bot.send_voice(chat_id=sell_group_id, voice=msg.voice.file_id, caption=msg.caption,
-                                 parse_mode='HTML')
+            await bot.send_voice(chat_id=sell_group_id, voice=msg.voice.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.ANIMATION:
-            await bot.send_animation(chat_id=sell_group_id, animation=msg.animation.file_id, caption=msg.caption,
+            await bot.send_animation(chat_id=sell_group_id, animation=msg.animation.file_id, caption=caption,
                                      parse_mode='HTML')
         elif msg.content_type == types.ContentType.STICKER:
             await bot.send_sticker(chat_id=sell_group_id, sticker=msg.sticker.file_id)
         else:
-            await bot.send_message(chat_id=sell_group_id, text=msg.text,
-                                   parse_mode='HTML')
+            await bot.send_message(chat_id=sell_group_id, text=f"{caption}\nMa'lumot:\n{msg.text}", parse_mode='HTML')
+
+    if media:
+        await bot.send_media_group(chat_id=sell_group_id, media=media)
+
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
@@ -101,44 +108,52 @@ Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chek, garatiya va
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
-@dp.message_handler(state="buy", content_types=[types.ContentType.ANY])
+@dp.message_handler(state="buy", content_types=types.ContentType.ANY)
 async def buy_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
+    caption = f"""
+Yangi telefon🆕
+
+Username: @{msg.from_user.username}
+Ism-Familiya: {tg_user['full_name']}
+Telefon raqam: {tg_user['phone_number']}"""
+
     media = []
     if msg.media_group_id:
         if msg.content_type == types.ContentType.PHOTO:
             for photo in msg.photo:
                 media.append(
-                    types.InputMediaPhoto(media=photo.file_id, caption=msg.caption if photo == msg.photo[-1] else "",
+                    types.InputMediaPhoto(media=photo.file_id, caption=caption if photo == msg.photo[-1] else "",
                                           parse_mode='HTML'))
         elif msg.content_type == types.ContentType.VIDEO:
             for video in msg.video:
                 media.append(
-                    types.InputMediaVideo(media=video.file_id, caption=msg.caption if video == msg.video[-1] else "",
+                    types.InputMediaVideo(media=video.file_id, caption=caption if video == msg.video[-1] else "",
                                           parse_mode='HTML'))
     else:
         if msg.content_type == types.ContentType.PHOTO:
-            media.append(types.InputMediaPhoto(media=msg.photo[-1].file_id, caption=msg.caption, parse_mode='HTML'))
+            await bot.send_photo(chat_id=buy_group_id, photo=msg.photo[-1].file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.VIDEO:
-            media.append(types.InputMediaVideo(media=msg.video.file_id, caption=msg.caption, parse_mode='HTML'))
+            await bot.send_video(chat_id=buy_group_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.DOCUMENT:
-            await bot.send_document(chat_id=buy_group_id, document=msg.document.file_id, caption=msg.caption,
+            await bot.send_document(chat_id=buy_group_id, document=msg.document.file_id, caption=caption,
                                     parse_mode='HTML')
         elif msg.content_type == types.ContentType.AUDIO:
-            await bot.send_audio(chat_id=buy_group_id, audio=msg.audio.file_id, caption=msg.caption,
-                                 parse_mode='HTML')
+            await bot.send_audio(chat_id=buy_group_id, audio=msg.audio.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.VOICE:
-            await bot.send_voice(chat_id=buy_group_id, voice=msg.voice.file_id, caption=msg.caption,
-                                 parse_mode='HTML')
+            await bot.send_voice(chat_id=buy_group_id, voice=msg.voice.file_id, caption=caption, parse_mode='HTML')
         elif msg.content_type == types.ContentType.ANIMATION:
-            await bot.send_animation(chat_id=buy_group_id, animation=msg.animation.file_id, caption=msg.caption,
+            await bot.send_animation(chat_id=buy_group_id, animation=msg.animation.file_id, caption=caption,
                                      parse_mode='HTML')
         elif msg.content_type == types.ContentType.STICKER:
             await bot.send_sticker(chat_id=buy_group_id, sticker=msg.sticker.file_id)
         else:
-            await bot.send_message(chat_id=buy_group_id, text=msg.text,
-                                   parse_mode='HTML')
+            await bot.send_message(chat_id=buy_group_id, text=f"{caption}\nMa'lumot:\n{msg.text}", parse_mode='HTML')
+
+    if media:
+        await bot.send_media_group(chat_id=buy_group_id, media=media)
+
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
