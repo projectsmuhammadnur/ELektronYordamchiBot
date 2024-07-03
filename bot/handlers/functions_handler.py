@@ -38,7 +38,7 @@ Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!""",
 
 
 @dp.message_handler(state="sell",
-                    content_types=[types.ContentType.PHOTO, types.ContentType.VIDEO, types.ContentType.TEXT])
+                    content_types=[types.ContentType.ANY])
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
@@ -49,12 +49,25 @@ Username: @{msg.from_user.username}
 Ism-Familiya: {tg_user['full_name']}
 Telefon raqam: {tg_user['phone_number']}"""
     if msg.content_type == types.ContentType.PHOTO:
-        await bot.send_photo(chat_id=sell_group_id, photo=msg.photo[-1].file_id, caption=caption,
+        await bot.send_photo(chat_id=directory_channel_id, photo=msg.photo[-1].file_id, caption=caption,
                              parse_mode='HTML')
     elif msg.content_type == types.ContentType.VIDEO:
-        await bot.send_video(chat_id=sell_group_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+        await bot.send_video(chat_id=directory_channel_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.DOCUMENT:
+        await bot.send_document(chat_id=directory_channel_id, document=msg.document.file_id, caption=caption,
+                                parse_mode='HTML')
+    elif msg.content_type == types.ContentType.AUDIO:
+        await bot.send_audio(chat_id=directory_channel_id, audio=msg.audio.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.VOICE:
+        await bot.send_voice(chat_id=directory_channel_id, voice=msg.voice.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.ANIMATION:
+        await bot.send_animation(chat_id=directory_channel_id, animation=msg.animation.file_id, caption=caption,
+                                 parse_mode='HTML')
+    elif msg.content_type == types.ContentType.STICKER:
+        await bot.send_sticker(chat_id=directory_channel_id, sticker=msg.sticker.file_id)
     else:
-        await bot.send_message(chat_id=sell_group_id, text=f"{caption}\nAriza:\n{msg.text}", parse_mode='HTML')
+        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nMa'lumot:\n{msg.text}",
+                               parse_mode='HTML')
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
@@ -80,8 +93,7 @@ Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chek, garatiya va
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
-@dp.message_handler(state="buy",
-                    content_types=[types.ContentType.PHOTO, types.ContentType.VIDEO, types.ContentType.TEXT])
+@dp.message_handler(state="buy", content_types=[types.ContentType.ANY])
 async def buy_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
@@ -92,12 +104,25 @@ Username: @{msg.from_user.username}
 Ism-Familiya: {tg_user['full_name']}
 Telefon raqam: {tg_user['phone_number']}"""
     if msg.content_type == types.ContentType.PHOTO:
-        await bot.send_photo(chat_id=buy_group_id, photo=msg.photo[-1].file_id, caption=caption,
+        await bot.send_photo(chat_id=directory_channel_id, photo=msg.photo[-1].file_id, caption=caption,
                              parse_mode='HTML')
     elif msg.content_type == types.ContentType.VIDEO:
-        await bot.send_video(chat_id=buy_group_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+        await bot.send_video(chat_id=directory_channel_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.DOCUMENT:
+        await bot.send_document(chat_id=directory_channel_id, document=msg.document.file_id, caption=caption,
+                                parse_mode='HTML')
+    elif msg.content_type == types.ContentType.AUDIO:
+        await bot.send_audio(chat_id=directory_channel_id, audio=msg.audio.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.VOICE:
+        await bot.send_voice(chat_id=directory_channel_id, voice=msg.voice.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.ANIMATION:
+        await bot.send_animation(chat_id=directory_channel_id, animation=msg.animation.file_id, caption=caption,
+                                 parse_mode='HTML')
+    elif msg.content_type == types.ContentType.STICKER:
+        await bot.send_sticker(chat_id=directory_channel_id, sticker=msg.sticker.file_id)
     else:
-        await bot.send_message(chat_id=buy_group_id, text=f"{caption}\nAriza:\n{msg.text}", parse_mode='HTML')
+        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nMa'lumot:\n{msg.text}",
+                               parse_mode='HTML')
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
@@ -263,8 +288,7 @@ Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
-@dp.message_handler(state="directory",
-                    content_types=[types.ContentType.PHOTO, types.ContentType.VIDEO, types.ContentType.TEXT])
+@dp.message_handler(state="directory", content_types=[types.ContentType.ANY])
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
     tg_user = json.loads(requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/").content)
@@ -279,8 +303,21 @@ Telefon raqam: {tg_user['phone_number']}"""
                              parse_mode='HTML')
     elif msg.content_type == types.ContentType.VIDEO:
         await bot.send_video(chat_id=directory_channel_id, video=msg.video.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.DOCUMENT:
+        await bot.send_document(chat_id=directory_channel_id, document=msg.document.file_id, caption=caption,
+                                parse_mode='HTML')
+    elif msg.content_type == types.ContentType.AUDIO:
+        await bot.send_audio(chat_id=directory_channel_id, audio=msg.audio.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.VOICE:
+        await bot.send_voice(chat_id=directory_channel_id, voice=msg.voice.file_id, caption=caption, parse_mode='HTML')
+    elif msg.content_type == types.ContentType.ANIMATION:
+        await bot.send_animation(chat_id=directory_channel_id, animation=msg.animation.file_id, caption=caption,
+                                 parse_mode='HTML')
+    elif msg.content_type == types.ContentType.STICKER:
+        await bot.send_sticker(chat_id=directory_channel_id, sticker=msg.sticker.file_id)
     else:
-        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nMa'lumot:\n{msg.text}", parse_mode='HTML')
+        await bot.send_message(chat_id=directory_channel_id, text=f"{caption}\nMa'lumot:\n{msg.text}",
+                               parse_mode='HTML')
     if tg_user['language'] == 'uz':
         await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
