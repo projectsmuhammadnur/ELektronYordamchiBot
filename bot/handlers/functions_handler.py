@@ -289,6 +289,7 @@ async def sell_function(msg: types.Message, state: FSMContext):
         tg_user = json.loads(tg_user_response.content)
         last_posted = tg_user.get('last_posted')
         if last_posted:
+            print(1)
             last_posted_time = datetime.fromisoformat(last_posted)
             if datetime.now() - last_posted_time < timedelta(hours=1):
                 if tg_user['language'] == 'uz':
@@ -297,10 +298,11 @@ async def sell_function(msg: types.Message, state: FSMContext):
                 else:
                     await msg.answer("Вы отправили сообщение в течение последнего часа. Пожалуйста, попробуйте позже.",
                                      reply_markup=await main_menu_buttons(msg.from_user.id))
-            else:
-                await state.set_state("directory")
-                if msg.text == directory:
-                    await msg.answer(text="""
+                return
+        # Proceed with the existing logic
+        await state.set_state("directory")
+        if msg.text == directory:
+            await msg.answer(text="""
 Hurmatli sotuvchi siz bu yerda oʻzingizni telefon maxsulotlaringizni kanalga joylang.
 
 Eslatma: Sotuvda savdo qoidalari va halollikka amal qiling!
@@ -319,9 +321,9 @@ E'lon berish tartibi
 🇺🇿 Manzil:
 
 Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
-                                     reply_markup=await back_main_menu_button(msg.from_user.id))
-                else:
-                    await msg.answer(text="""
+                             reply_markup=await back_main_menu_button(msg.from_user.id))
+        else:
+            await msg.answer(text="""
 Уважаемый продавец, пожалуйста, разместите свои телефонные товары по следующему шаблону на канале:
 
 ⌚️📱💻🖥 Разм
@@ -337,7 +339,7 @@ Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
 
 Ваш канал: @telefonlar_elektron_yordamчи - объявления размещаются на этом канале"
 Не забывайте соблюдать правила торговли и честность!""",
-                                     reply_markup=await back_main_menu_button(msg.from_user.id))
+                             reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer("User not found.", reply_markup=await main_menu_buttons(msg.from_user.id))
 
