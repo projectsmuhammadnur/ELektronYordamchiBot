@@ -8,6 +8,7 @@ from bot.buttons.text import sell, sell_ru, buy, buy_ru, offer, offer_ru, compla
 from bot.dispatcher import dp, bot
 from aiogram import types
 from aiogram.dispatcher.filters import Text
+from datetime import datetime, timedelta, timezone
 
 from bot.handlers import geolocator
 
@@ -279,19 +280,15 @@ Manzil: {location}""", parse_mode='HTML')
                          reply_markup=await main_menu_buttons(msg.from_user.id))
 
 
-from datetime import datetime, timedelta
-
-
 @dp.message_handler(Text(equals=[directory, directory_ru]))
 async def sell_function(msg: types.Message, state: FSMContext):
     tg_user_response = requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/")
     if tg_user_response.status_code == 200:
         tg_user = json.loads(tg_user_response.content)
-        last_posted = tg_user.get('last_posted')
+        last_posted = tg_user.get('sell_phone')
         if last_posted:
-            print(1)
-            last_posted_time = datetime.fromisoformat(last_posted)
-            if datetime.now() - last_posted_time < timedelta(hours=1):
+            last_posted_time = datetime.fromisoformat(last_posted).astimezone()
+            if datetime.now(timezone.utc) - last_posted_time < timedelta(hours=1):
                 if tg_user['language'] == 'uz':
                     await msg.answer("Siz so'nggi 1 soat ichida post yuborgansiz. Iltimos, keyinroq urinib ko'ring.",
                                      reply_markup=await main_menu_buttons(msg.from_user.id))
@@ -299,7 +296,7 @@ async def sell_function(msg: types.Message, state: FSMContext):
                     await msg.answer("Вы отправили сообщение в течение последнего часа. Пожалуйста, попробуйте позже.",
                                      reply_markup=await main_menu_buttons(msg.from_user.id))
                 return
-        # Proceed with the existing logic
+        # Davom etish
         await state.set_state("directory")
         if msg.text == directory:
             await msg.answer(text="""
@@ -390,9 +387,9 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
                                        parse_mode='HTML')
         if media:
             await bot.send_media_group(chat_id=directory_channel_id, media=media)
-        # Update last_posted field
+        # last_posted maydonini yangilash
         requests.patch(url=f"http://127.0.0.1:8000/telegram-users/update/{tg_user['id']}/",
-                       json={"last_posted": datetime.now().isoformat()})
+                       json={"sell_phone": datetime.now(timezone.utc).isoformat()})
         if tg_user['language'] == 'uz':
             await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
                              reply_markup=await main_menu_buttons(msg.from_user.id))
