@@ -11,13 +11,13 @@ from aiogram.dispatcher.filters import Text
 
 from bot.handlers import geolocator
 
-directory_channel_id = -1002245492491
-sell_group_id = -1002226699457
-buy_group_id = -1002183558449
-offer_group_id = -1002180481619
-complaint_group_id = -1002166274930
-partner_group_id = -1002206274820
-business_card_id = -1002196387423
+directory_channel_id = -1002149271077
+sell_group_id = -1002189930906
+buy_group_id = -1002149125841
+offer_group_id = -1002189437016
+complaint_group_id = -1002183413581
+partner_group_id = -1002189191255
+business_card_id = -1002179772736
 
 
 @dp.message_handler(Text(equals=[sell, sell_ru]))
@@ -97,15 +97,15 @@ async def buy_function(msg: types.Message, state: FSMContext):
     await state.set_state("buy")
     if msg.text == buy:
         await msg.answer(text=""" 
-Hurmatli mijoz barcha turdagi va rusumdagi telefonlarni bizdan sotib olishingiz mumkun.
+Hurmatli mijoz barcha turdagi va rusumdagi telefonlarni bizdan sotib olishingiz mumkun @Yangi_telef0nlar kanalidan telefon tanlang.
 
 Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chek, garatiya va karobka-dokumentni olishni unutmang!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Уважаемый клиент, вы можете купить у нас телефоны всех видов и марок.
+Уважаемый покупатель, у нас вы можете купить все типы и модели телефонов, выбирайте телефон на канале @Yangi_telef0nlar.
 
-Напоминание: При заключении сделки соблюдайте правила торговли и честность! Не забудьте взять чек, гарантию и коробку с документами!""",
+Примечание: соблюдайте правила торговли и будьте честны при переговорах! Не забудьте получить чек, гарантию и коробку-документ!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
 
 
@@ -157,10 +157,10 @@ Telefon raqam: {tg_user['phone_number']}
         await bot.send_media_group(chat_id=buy_group_id, media=media)
 
     if tg_user['language'] == 'uz':
-        await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
+        await msg.answer("Eloningiz Bot kanaliga joylandi 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
     else:
-        await msg.answer("Заявка отправлена.\nМы скоро свяжемся с вами 😊",
+        await msg.answer("Ваш комментарий загружен на канал бота 😊",
                          reply_markup=await main_menu_buttons(msg.from_user.id))
 
 
