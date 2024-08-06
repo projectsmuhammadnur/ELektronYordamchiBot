@@ -97,13 +97,15 @@ async def buy_function(msg: types.Message, state: FSMContext):
     await state.set_state("buy")
     if msg.text == buy:
         await msg.answer(text=""" 
-Hurmatli mijoz barcha turdagi va rusumdagi telefonlarni bizdan sotib olishingiz mumkun @Yangi_telef0nlar kanalidan telefon tanlang.
+Hurmatli mijoz barcha turdagi va rusumdagi telefonlarni bizdan sotib olishingiz mumkun. @Yangi_telef0nlar kanalidan telefon tanlang.
+Sizda yangi telefon mavjud bo'lsa sotuv quyishingiz mumkun.
 
 Eslatma: Kelishuvda savdo qoidalari va halollikka amal qiling! Chek, garatiya va karobka-dokumentni olishni unutmang!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
         await msg.answer(text="""
-Уважаемый покупатель, у нас вы можете купить все типы и модели телефонов, выбирайте телефон на канале @Yangi_telef0nlar.
+Уважаемый покупатель, у нас вы можете купить все типы и модели телефонов. Выбирайте телефон на канале @Yangi_telef0nlar.
+Если у вас есть новый телефон, вы можете его продать.
 
 Примечание: соблюдайте правила торговли и будьте честны при переговорах! Не забудьте получить чек, гарантию и коробку-документ!""",
                          reply_markup=await back_main_menu_button(msg.from_user.id))
