@@ -290,7 +290,7 @@ async def sell_function(msg: types.Message, state: FSMContext):
         last_posted = tg_user.get('last_posted')
         if last_posted:
             last_posted_time = datetime.fromisoformat(last_posted)
-            if datetime.now() - last_posted_time > timedelta(hours=1):
+            if datetime.now() - last_posted_time < timedelta(hours=1):
                 if tg_user['language'] == 'uz':
                     await msg.answer("Siz so'nggi 1 soat ichida post yuborgansiz. Iltimos, keyinroq urinib ko'ring.",
                                      reply_markup=await main_menu_buttons(msg.from_user.id))
