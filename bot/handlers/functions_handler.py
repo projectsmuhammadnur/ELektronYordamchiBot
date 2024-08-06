@@ -279,6 +279,7 @@ Manzil: {location}""", parse_mode='HTML')
 
 from datetime import datetime, timedelta
 
+
 @dp.message_handler(Text(equals=[directory, directory_ru]))
 async def sell_function(msg: types.Message, state: FSMContext):
     tg_user_response = requests.get(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/")
@@ -339,6 +340,7 @@ Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
     else:
         await msg.answer("User not found.", reply_markup=await main_menu_buttons(msg.from_user.id))
 
+
 @dp.message_handler(state="directory", content_types=types.ContentType.ANY)
 async def sell_function_2(msg: types.Message, state: FSMContext):
     await state.finish()
@@ -350,12 +352,14 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
             if msg.content_type == types.ContentType.PHOTO:
                 for photo in msg.photo:
                     media.append(
-                        types.InputMediaPhoto(media=photo.file_id, caption=msg.caption if photo == msg.photo[-1] else "",
+                        types.InputMediaPhoto(media=photo.file_id,
+                                              caption=msg.caption if photo == msg.photo[-1] else "",
                                               parse_mode='HTML'))
             elif msg.content_type == types.ContentType.VIDEO:
                 for video in msg.video:
                     media.append(
-                        types.InputMediaVideo(media=video.file_id, caption=msg.caption if video == msg.video[-1] else "",
+                        types.InputMediaVideo(media=video.file_id,
+                                              caption=msg.caption if video == msg.video[-1] else "",
                                               parse_mode='HTML'))
         else:
             if msg.content_type == types.ContentType.PHOTO:
@@ -363,7 +367,8 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
             elif msg.content_type == types.ContentType.VIDEO:
                 media.append(types.InputMediaVideo(media=msg.video.file_id, caption=msg.caption, parse_mode='HTML'))
             elif msg.content_type == types.ContentType.DOCUMENT:
-                await bot.send_document(chat_id=directory_channel_id, document=msg.document.file_id, caption=msg.caption,
+                await bot.send_document(chat_id=directory_channel_id, document=msg.document.file_id,
+                                        caption=msg.caption,
                                         parse_mode='HTML')
             elif msg.content_type == types.ContentType.AUDIO:
                 await bot.send_audio(chat_id=directory_channel_id, audio=msg.audio.file_id, caption=msg.caption,
@@ -372,7 +377,8 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
                 await bot.send_voice(chat_id=directory_channel_id, voice=msg.voice.file_id, caption=msg.caption,
                                      parse_mode='HTML')
             elif msg.content_type == types.ContentType.ANIMATION:
-                await bot.send_animation(chat_id=directory_channel_id, animation=msg.animation.file_id, caption=msg.caption,
+                await bot.send_animation(chat_id=directory_channel_id, animation=msg.animation.file_id,
+                                         caption=msg.caption,
                                          parse_mode='HTML')
             elif msg.content_type == types.ContentType.STICKER:
                 await bot.send_sticker(chat_id=directory_channel_id, sticker=msg.sticker.file_id)
@@ -392,4 +398,3 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
                              reply_markup=await main_menu_buttons(msg.from_user.id))
     else:
         await msg.answer("User not found.", reply_markup=await main_menu_buttons(msg.from_user.id))
-
