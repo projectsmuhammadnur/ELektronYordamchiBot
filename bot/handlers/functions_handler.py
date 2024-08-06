@@ -390,7 +390,7 @@ async def sell_function_2(msg: types.Message, state: FSMContext):
         if media:
             await bot.send_media_group(chat_id=directory_channel_id, media=media)
         # Update last_posted field
-        requests.patch(url=f"http://127.0.0.1:8000/telegram-users/chat_id/{msg.from_user.id}/",
+        requests.patch(url=f"http://127.0.0.1:8000/telegram-users/update/{msg.from_user.id}/",
                        json={"last_posted": datetime.now().isoformat()})
         if tg_user['language'] == 'uz':
             await msg.answer("Ariza yuborildi.\nTez orada aloqaga chiqamiz 😊",
