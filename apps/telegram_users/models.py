@@ -11,6 +11,7 @@ class TelegramUsers(models.Model):
     full_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=13, unique=True, null=True)
     language = models.CharField(max_length=2, choices=LANGUAGE_CHOICES, default='uz')
+    sell_phone = models.DateTimeField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
