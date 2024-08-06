@@ -317,7 +317,7 @@ E'lon berish tartibi
 ✍️ User bo'lsa: @
 🇺🇿 Manzil:
 
-Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
+Eloningiz: @Katalog1001 - shu kanalda elon qilinadi""",
                              reply_markup=await back_main_menu_button(msg.from_user.id))
         else:
             await msg.answer(text="""
@@ -334,7 +334,7 @@ Eloningiz: @telefonlar_elektron_yordamchi - shu kanalda elon qilinadi""",
 ✍️ Пользователь: @
 🇺🇿 Адрес:
 
-Ваш канал: @telefonlar_elektron_yordamчи - объявления размещаются на этом канале"
+Ваш канал: @Katalog1001 - объявления размещаются на этом канале"
 Не забывайте соблюдать правила торговли и честность!""",
                              reply_markup=await back_main_menu_button(msg.from_user.id))
     else:
